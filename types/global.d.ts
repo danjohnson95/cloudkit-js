@@ -114,6 +114,11 @@ export interface DeleteRecordOptions {
  */
 export type RecordType = string
 
+export interface ReferenceField {
+    recordName: string;
+    action?: "NONE" | "DELETE_SELF" | "VALIDATE";
+}
+
 export interface RecordField {
     value: any;
     type?: string

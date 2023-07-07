@@ -67,6 +67,59 @@ export class CloudKitJs {
         )
     }
 
+    public async createRecords(records: CreateRecordOptions[]) {
+        const payload = JSON.stringify({
+            operations: records.map(record => ({
+                operationType: "create",
+                record: {
+                    recordType: record.recordType,
+                    fields: record.fields,
+                }
+            }))
+        })
+
+        return this.requestService.makeRequest(
+            this.urlBuilder.getModifyRecordsPath(),
+            payload
+        )
+    }
+
+    public async updateRecord(recordName: string, recordType: RecordType, fields: { [index in string]: any }) {
+        const payload = JSON.stringify({
+            operations: [{
+                operationType: "update",
+                record: {
+                    recordName,
+                    recordType,
+                    fields
+                }
+            }]
+        })
+
+        return this.requestService.makeRequest(
+            this.urlBuilder.getModifyRecordsPath(),
+            payload
+        )
+    }
+
+    public async forceUpdateRecord(recordName: string, recordType: RecordType, fields: { [index in string]: any }) {
+        const payload = JSON.stringify({
+            operations: [{
+                operationType: "forceUpdate",
+                record: {
+                    recordName,
+                    recordType,
+                    fields
+                }
+            }]
+        })
+
+        return this.requestService.makeRequest(
+            this.urlBuilder.getModifyRecordsPath(),
+            payload
+        )
+    }
+
     public async deleteRecord(deleteRecordOptions: DeleteRecordOptions) {
         const payload = JSON.stringify({
             operations: [{
@@ -116,6 +169,53 @@ export class CloudKitJs {
         return this.requestService.makeRequest(
             this.urlBuilder.getModifyRecordsPath(),
             payload
+        )
+    }
+
+    public async uploadAssetFromUrl(recordType: RecordType, fieldName: string, fileUrl: string, recordName: string) {
+        // Download the asset from fileUrl
+        const buffer = await (await fetch(fileUrl)).blob()
+
+        return this.uploadAsset(
+            recordType,
+            fieldName,
+            buffer,
+            recordName
+        )
+    }
+
+    public async uploadAsset(recordType: RecordType, fieldName: string, fileContents: Blob, recordName: string) {
+        const payload = JSON.stringify({
+            tokens: [{
+                recordName,
+                recordType,
+                fieldName
+            }]
+        })
+
+        const resp = await this.requestService.makeRequest(
+            this.urlBuilder.getUploadAssetsPath(),
+            payload
+        )
+
+        const uploadUrl = (resp as any).tokens[0].url
+
+        const assetResp = await fetch(uploadUrl, {
+            method: "POST",
+            body: fileContents
+        })
+
+        const imageResp = await assetResp.json()
+
+        // Now we need to update the record with the asset
+        return this.forceUpdateRecord(
+            recordName,
+            recordType,
+            {
+                [fieldName]: {
+                    value: imageResp.singleFile
+                }
+            }
         )
     }
 }

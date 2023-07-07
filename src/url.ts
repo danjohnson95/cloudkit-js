@@ -43,4 +43,9 @@ export class UrlBuilder {
     public getShareAcceptPath() {
         return `${this.getBasePath()}/records/shares/accept`
     }
+
+    /** Assets */
+    public getUploadAssetsPath() {
+        return `${this.getBasePath()}/assets/upload`
+    }
 }
