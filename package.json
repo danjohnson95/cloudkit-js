@@ -4,7 +4,7 @@
   "description": "A JS library for managing a CloudKit container",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ts-node src/main.ts"
+    "build": "tsc"
   },
   "types": "./types/global.d.ts",
   "type": "commonjs",
