@@ -1,6 +1,6 @@
 # CloudKit JS
 
-cloudkitjs aims to make it easy for you to manage your CloudKit container from your Node.js server.
+CloudKit JS aims to make it easy for you to manage your CloudKit container from your Node.js server.
 
 It's as simple as this
 
