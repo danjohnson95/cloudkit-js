@@ -74,6 +74,7 @@ export class CloudKitJs {
                 record: {
                     recordType: record.recordType,
                     fields: record.fields,
+                    recordName: record.recordName,
                 }
             }))
         })

@@ -6,11 +6,12 @@
   "scripts": {
     "build": "tsc"
   },
-  "types": "./types/global.d.ts",
-  "type": "commonjs",
   "engines": {
     "node": ">=18.6"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/danjohnson95/cloudkit-js.git"
