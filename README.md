@@ -10,7 +10,7 @@ import { CloudKitJs } from 'cloudkit-js';
 const lib = new CloudKitJs({
     containerName: "iCloud.com.your.container.name",
     keyId: "xxx",
-    privateKeyFile: "eckey.pem"
+    privateKeyPath: "eckey.pem"
 })
 
 lib.createRecord({
@@ -46,11 +46,11 @@ import { CloudKitJs } from 'cloudkit-js';
 const lib = new CloudKitJs({
     containerName: "iCloud.com.your.container.name", // Update this with your CloudKit container name
     keyId: "xxx", // Put your key ID here
-    privateKeyFile: "eckey.pem" // Point to your private key file
+    privateKeyPath: "eckey.pem" // Point to your private key file
 })
 ```
 
-The `keyId` and `privateKeyFile` are the values you got from step 1.
+The `keyId` and `privateKeyPath` are the values you got from step 1.
 
 Your Key ID is displayed when viewing the server-to-server key on the CloudKit Dashboard.
 
