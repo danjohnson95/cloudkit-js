@@ -1,8 +1,8 @@
 import fs from 'fs'
-import { CreateRecordOptions, DeleteRecordOptions, InitParams, QueryRecordOptions, RecordType } from "../types/global";
 import { SignService } from "./sign";
 import { RequestService } from "./request";
 import { UrlBuilder } from "./url";
+import { CreateRecordOptions, DeleteRecordOptions, InitParams, QueryRecordOptions, RecordType, UpdateRecordOptions } from './types';
 
 export class CloudKitJs {
     protected readonly requestService: RequestService

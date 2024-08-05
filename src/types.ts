@@ -1,4 +1,13 @@
-import { Database } from "../src";
+declare class CloudKitJs {
+    constructor(initParams: InitParams);
+    queryRecords(queryRecordOptions: QueryRecordOptions): Promise<any>
+    getRecordByName(recordName: string, desiredKeys?: string[]): Promise<any>
+    createRecord(createRecordOptions: CreateRecordOptions): Promise<any>
+    createRecords(records: CreateRecordOptions[]): Promise<any>
+    deleteRecord(deleteRecordOptions: DeleteRecordOptions): Promise<any>
+    uploadAssetFromUrl(recordType: string, fieldName: string, url: string, recordName: string): Promise<any>
+    uploadAsset(recordType: string, fieldName: string, file: Buffer, recordName: string): Promise<any>
+}
 
 export interface InitParams {
     /**
@@ -41,19 +50,7 @@ export interface ErrorResponse {
     reason: string;
 }
 
-export enum FieldType {
-    String = "String",
-    Int64 = "Int64",
-    Reference = "Reference",
-    Location = "Location",
-    Double = "Double",
-    DateTime = "DateTime",
-    Bytes = "Bytes",
-    // List
-    // Asset
-}
-
-type FieldList = {
+export type FieldList = {
     [key: string]: FieldType;
 }
 
@@ -103,6 +100,13 @@ export interface CreateRecordOptions {
     fields?: { [index in string]: RecordField }
 }
 
+export interface UpdateRecordOptions {
+    recordName: string
+    recordType: RecordType;
+    recordChangeTag: string;
+    fields?: { [ index in string]: RecordField }
+}
+
 export interface DeleteRecordOptions {
     recordName: string
     recordType: RecordType;
@@ -146,4 +150,76 @@ export interface UrlBuilderInitParams {
     containerName: string;
     environment: Environment
     database: Database;
+}
+
+export enum ErrorType {
+    /**
+     * You don’t have permission to access the endpoint, record, zone, or database.
+     */
+    AccessDenied = "ACCESS_DENIED",
+
+    /**
+     * An atomic batch operation failed.
+     */
+    AtomicError = "ATOMIC_ERROR",
+
+    /**
+     * Authentication was rejected.
+     */
+    AuthenticationFailed = "AUTHENTICATION_FAILED",
+
+    /**
+     * The request requires authentication but none was provided.
+     */
+    AuthenticationRequired = "AUTHENTICATION_REQUIRED",
+
+    /**
+     * The request was not valid.
+     */
+    BadRequest = "BAD_REQUEST",
+
+    /**
+     * The recordChangeTag value expired. (Retry the request with the latest tag.)
+     */
+    Conflict = "CONFLICT",
+
+    /**
+     * The resource that you attempted to create already exists.
+     */
+    Exists = "EXISTS",
+
+    /**
+     * An internal error occurred.
+     */
+    InternalError = "INTERNAL_ERROR",
+
+    /**
+     * The resource was not found.
+     */
+    NotFound = "NOT_FOUND",
+
+    /**
+     * If accessing the public database, you exceeded the app’s quota. If accessing the private database, you exceeded the user’s iCloud quota.
+     */
+    QuotaExceeded = "QUOTA_EXCEEDED",
+
+    /**
+     * The request was throttled. Try the request again later.
+     */
+    Throttled = "THROTTLED",
+
+    /**
+     * An internal error occurred. Try the request again.
+     */
+    TryAgainLater = "TRY_AGAIN_LATER",
+
+    /**
+     * The request violates a validating reference constraint.
+     */
+    ValidatingReferenceError = "VALIDATING_REFERENCE_ERROR",
+
+    /**
+     * The zone specified in the request was not found.
+     */
+    ZoneNotFound = "ZONE_NOT_FOUND",
 }

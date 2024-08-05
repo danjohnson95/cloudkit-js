@@ -8,11 +8,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "types": [
-      "node",
-    ],
-    "outDir": "dist"
+    "outDir": "dist",
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "examples",

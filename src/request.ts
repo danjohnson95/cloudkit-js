@@ -1,5 +1,5 @@
 import https from "https"
-import { ISignService } from "../types/global";
+import { ISignService } from "./types";
 
 export class RequestService {
     protected readonly hostname = "api.apple-cloudkit.com";
