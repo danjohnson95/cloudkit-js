@@ -7,7 +7,7 @@ export class RequestService {
 
     constructor(protected readonly signService: ISignService) { }
 
-    public makeRequest(requestPath: string, payload: string) {
+    public makeRequest<T>(requestPath: string, payload: string): Promise<T> {
         const { dateString, signature } = this.signService.signRequest(payload, requestPath)
 
         const requestOptions = {
