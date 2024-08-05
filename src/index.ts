@@ -2,7 +2,7 @@ import fs from 'fs'
 import { SignService } from "./sign";
 import { RequestService } from "./request";
 import { UrlBuilder } from "./url";
-import { CreateRecordOptions, DeleteRecordOptions, InitParams, QueryRecordOptions, RecordType, UpdateRecordOptions } from './types';
+import { CreateRecordOptions, DeleteRecordOptions, InitParams, QueryRecordOptions, RecordQueryResponse, RecordType, UpdateRecordOptions } from './types';
 
 export class CloudKitJs {
     protected readonly requestService: RequestService
@@ -27,10 +27,10 @@ export class CloudKitJs {
         })
     }
 
-    public async queryRecords(queryRecordOptions: QueryRecordOptions): Promise<any> {
+    public async queryRecords(queryRecordOptions: QueryRecordOptions) {
         const payload = JSON.stringify(queryRecordOptions)
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getQueryRecordsPath(),
             payload,
         )
@@ -44,7 +44,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getLookupRecordsPath(),
             payload
         )
@@ -61,7 +61,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -79,7 +79,7 @@ export class CloudKitJs {
             }))
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -97,7 +97,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -115,7 +115,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -133,7 +133,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -150,7 +150,7 @@ export class CloudKitJs {
             }]
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
@@ -163,11 +163,12 @@ export class CloudKitJs {
                 record: {
                     recordName,
                     recordType,
+
                 }
             }))
         })
 
-        return this.requestService.makeRequest(
+        return this.requestService.makeRequest<RecordQueryResponse>(
             this.urlBuilder.getModifyRecordsPath(),
             payload
         )
