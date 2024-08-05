@@ -1,4 +1,4 @@
-import { Database, Environment, UrlBuilderInitParams } from "../types/global"
+import { Database, Environment, UrlBuilderInitParams } from "./types"
 
 export class UrlBuilder {
     protected readonly versionNumber = 1

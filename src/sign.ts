@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { ISignService } from '../types/global'
+import { ISignService } from './types'
 
 export class SignService implements ISignService {
     constructor(private readonly privateKey: Buffer, private readonly keyId: string) {
